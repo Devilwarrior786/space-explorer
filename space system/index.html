@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Space Explorer — Explore all planets in interactive 3D" />
+  <title>Space Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ========== HOME SCREEN ========== -->
+  <div id="screen-home" class="screen active">
+    <header class="home-header">
+      <h1 class="app-title">SPACE <span class="accent">EXPLORER</span></h1>
+      <p class="subtitle">Click any planet to explore</p>
+    </header>
+    <!-- Three.js canvas fills the rest -->
+    <canvas id="home-canvas"></canvas>
+
+    <!-- Speed control -->
+    <div class="speed-control">
+      <span class="speed-label">⏩ Speed</span>
+      <input type="range" id="speed-slider" min="0.2" max="5" step="0.1" value="1" />
+    </div>
+
+    <button id="quiz-home-btn" class="pill-btn glow">🧠 Take Quiz</button>
+  </div>
+
+  <!-- ========== PLANET DETAIL SCREEN ========== -->
+  <div id="screen-planet" class="screen">
+    <button id="back-btn" class="back-btn">&#8592; Solar System</button>
+    <!-- Planet selector row -->
+    <div id="planet-selector" class="planet-selector"></div>
+    <!-- 3D canvas -->
+    <canvas id="planet-canvas"></canvas>
+    <!-- Floating info panel -->
+    <div id="info-panel" class="info-panel">
+      <div class="panel-drag-bar" id="panel-drag"></div>
+      <div class="panel-inner">
+        <h2 id="planet-name" class="planet-title"></h2>
+        <div class="stats-grid">
+          <div class="stat"><div class="stat-label">Diameter</div><div id="s-size"    class="stat-value"></div></div>
+          <div class="stat"><div class="stat-label">Gravity</div> <div id="s-gravity" class="stat-value"></div></div>
+          <div class="stat"><div class="stat-label">Atmosphere</div><div id="s-atmo"  class="stat-value"></div></div>
+          <div class="stat"><div class="stat-label">Moons</div>   <div id="s-moons"   class="stat-value"></div></div>
+        </div>
+        <h3 class="facts-head">✨ Fun Facts</h3>
+        <div id="facts-list" class="facts-list"></div>
+        <button id="quiz-planet-btn" class="pill-btn glow" style="margin-top:1.2rem">🧠 Quiz Me</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== QUIZ SCREEN ========== -->
+  <div id="screen-quiz" class="screen">
+    <button id="quiz-back-btn" class="back-btn">&#8592; Back</button>
+    <div class="quiz-wrap">
+      <h2 class="quiz-heading">🧠 Space Quiz</h2>
+      <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+      <p id="q-counter" class="q-counter"></p>
+      <div id="quiz-body">
+        <p id="quiz-q" class="quiz-q"></p>
+        <div id="quiz-opts" class="quiz-opts"></div>
+      </div>
+      <div id="quiz-result" class="quiz-result hidden">
+        <div id="res-emoji" class="res-emoji"></div>
+        <h3 id="res-score" class="res-score"></h3>
+        <p  id="res-msg"   class="res-msg"></p>
+        <div class="res-btns">
+          <button id="retry-btn"   class="pill-btn glow">🔄 Retry</button>
+          <button id="explore-btn" class="pill-btn outline">🚀 Explore</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/textures.js"></script>
+  <script src="js/solar.js"></script>
+  <script src="js/planet3d.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

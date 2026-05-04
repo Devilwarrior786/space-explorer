@@ -1,0 +1,218 @@
+/* =============================================
+   SPACE EXPLORER — Full CSS Design System
+   ============================================= */
+
+:root {
+  --bg:        #020817;
+  --panel-bg:  rgba(8, 16, 38, 0.88);
+  --purple:    #7C3AED;
+  --cyan:      #06B6D4;
+  --gold:      #F59E0B;
+  --text:      #E2E8F0;
+  --dim:       #64748B;
+  --border:    rgba(255,255,255,0.07);
+  --r:         14px;
+  --ease:      cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--text);
+  font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- Screens ---- */
+.screen {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.screen.active { opacity: 1; pointer-events: all; }
+
+/* ---- HOME SCREEN ---- */
+.home-header {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  padding: 1.4rem 1.5rem 0.5rem;
+  pointer-events: none;
+}
+.app-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.4rem, 6vw, 2.6rem);
+  font-weight: 900; letter-spacing: 0.14em;
+  text-shadow: 0 0 40px rgba(124,58,237,0.5);
+}
+.accent {
+  background: linear-gradient(120deg, var(--purple), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle { font-size: 0.78rem; color: var(--dim); letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+#home-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; display: block;
+  cursor: grab;
+}
+
+/* Speed slider */
+.speed-control {
+  position: absolute; bottom: 4.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 10;
+  display: flex; align-items: center; gap: 0.75rem;
+  background: var(--panel-bg); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 50px;
+  padding: 0.5rem 1.1rem;
+}
+.speed-label { font-family: 'Orbitron', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--dim); }
+#speed-slider {
+  -webkit-appearance: none; appearance: none; width: 100px; height: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  border-radius: 2px; outline: none; cursor: pointer;
+}
+#speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  background: #fff; border-radius: 50%;
+  box-shadow: 0 0 6px var(--purple);
+}
+
+/* Quiz button on home */
+#quiz-home-btn {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* ---- SHARED BUTTONS ---- */
+.pill-btn {
+  font-family: 'Orbitron', monospace; font-size: 0.7rem;
+  letter-spacing: 0.08em; font-weight: 700;
+  padding: 0.7rem 1.6rem; border-radius: 50px;
+  border: none; cursor: pointer; white-space: nowrap;
+  transition: all 0.22s ease;
+}
+.pill-btn.glow {
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  color: #fff; box-shadow: 0 4px 20px rgba(124,58,237,0.45);
+}
+.pill-btn.glow:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(124,58,237,0.6); }
+.pill-btn.outline {
+  background: transparent; color: var(--cyan);
+  border: 1px solid var(--cyan);
+}
+.pill-btn.outline:hover { background: rgba(6,182,212,0.12); }
+
+.back-btn {
+  position: absolute; top: 1rem; left: 1rem; z-index: 20;
+  font-family: 'Orbitron', monospace; font-size: 0.65rem;
+  letter-spacing: 0.05em; padding: 0.5rem 1.1rem;
+  border-radius: 50px; border: 1px solid var(--border);
+  background: var(--panel-bg); backdrop-filter: blur(10px);
+  color: var(--text); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.back-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ---- PLANET DETAIL SCREEN ---- */
+#screen-planet { overflow: hidden; }
+#planet-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
+
+/* Planet selector tabs */
+.planet-selector {
+  position: absolute; top: 3.8rem; left: 0; right: 0; z-index: 10;
+  display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.5rem 1rem;
+  scrollbar-width: none;
+}
+.planet-selector::-webkit-scrollbar { display: none; }
+.planet-tab {
+  flex-shrink: 0; font-family: 'Orbitron', monospace; font-size: 0.6rem;
+  letter-spacing: 0.06em; padding: 0.4rem 0.85rem; border-radius: 50px;
+  border: 1px solid var(--border);
+  background: var(--panel-bg); backdrop-filter: blur(8px);
+  color: var(--dim); cursor: pointer; transition: all 0.2s;
+}
+.planet-tab:hover { color: var(--text); border-color: var(--cyan); }
+.planet-tab.active { color: var(--text); border-color: var(--purple); background: rgba(124,58,237,0.18); }
+
+/* Info panel (bottom sheet) */
+.info-panel {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 15;
+  background: var(--panel-bg); backdrop-filter: blur(22px);
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.38s var(--ease);
+  max-height: 68vh;
+}
+.info-panel.collapsed { transform: translateY(calc(100% - 52px)); }
+.info-panel.expanded  { transform: translateY(0); overflow-y: auto; }
+
+.panel-drag-bar {
+  width: 38px; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,0.2);
+  margin: 0.8rem auto 0.4rem; cursor: pointer;
+}
+.panel-inner { padding: 0.25rem 1.25rem 2rem; }
+
+.planet-title {
+  font-family: 'Orbitron', monospace; font-size: 1.5rem;
+  font-weight: 900; letter-spacing: 0.1em; margin-bottom: 1rem;
+  background: linear-gradient(120deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1.1rem; }
+.stat {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.7rem;
+}
+.stat-label { font-size: 0.6rem; letter-spacing: 0.09em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.25rem; }
+.stat-value { font-family: 'Orbitron', monospace; font-size: 0.72rem; color: var(--cyan); font-weight: 700; }
+
+.facts-head { font-family: 'Orbitron', monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--dim); margin-bottom: 0.65rem; }
+.facts-list { display: flex; flex-direction: column; gap: 0.55rem; }
+.fact-card {
+  padding: 0.7rem 0.9rem; border-radius: 12px;
+  background: rgba(124,58,237,0.07); border: 1px solid rgba(124,58,237,0.18);
+  font-size: 0.8rem; line-height: 1.55;
+}
+
+/* ---- QUIZ SCREEN ---- */
+#screen-quiz { overflow-y: auto; background: var(--bg); justify-content: flex-start; }
+.quiz-wrap {
+  width: 100%; max-width: 520px; padding: 5.5rem 1.25rem 3rem;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+.quiz-heading { font-family: 'Orbitron', monospace; font-size: 1.3rem; letter-spacing: 0.1em; text-align: center; }
+.q-counter { font-size: 0.75rem; color: var(--dim); text-align: right; letter-spacing: 0.05em; }
+.progress-track { width: 100%; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--cyan)); border-radius: 3px; transition: width 0.4s ease; width: 0%; }
+.quiz-q { font-size: 1rem; line-height: 1.65; font-weight: 500; }
+.quiz-opts { display: flex; flex-direction: column; gap: 0.6rem; }
+.opt-btn {
+  padding: 0.85rem 1.1rem; border-radius: 12px; cursor: pointer; text-align: left;
+  border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+  font-size: 0.88rem; color: var(--text); transition: all 0.18s;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--purple); background: rgba(124,58,237,0.1); }
+.opt-btn.correct { border-color: #22C55E; background: rgba(34,197,94,0.14); color: #86EFAC; }
+.opt-btn.wrong   { border-color: #EF4444; background: rgba(239,68,68,0.14);  color: #FCA5A5; }
+
+/* Quiz result */
+.quiz-result { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+.quiz-result.hidden { display: none; }
+.res-emoji { font-size: 3.5rem; }
+.res-score { font-family: 'Orbitron', monospace; font-size: 1.4rem; }
+.res-msg   { font-size: 0.88rem; color: var(--dim); max-width: 260px; }
+.res-btns  { display: flex; gap: 0.65rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; }
+
+/* Tooltip that appears when clicking a planet on the solar system */
+#planet-tooltip {
+  position: absolute; z-index: 20; pointer-events: none;
+  background: var(--panel-bg); backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.4rem 0.85rem; font-size: 0.75rem;
+  font-family: 'Orbitron', monospace; letter-spacing: 0.06em;
+  white-space: nowrap; opacity: 0; transition: opacity 0.2s;
+}
+#planet-tooltip.show { opacity: 1; }
